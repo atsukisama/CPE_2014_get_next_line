@@ -10,7 +10,7 @@
 
 #ifndef GET_NEXT_LINE_H_
 # define GET_NEXT_LINE_H_
-# define READ_SIZE 3
+# define READ_SIZE 1
 
 char *my_strcpy(char *dest, char *src);
 char *buffer_plus(char *old, char *current);

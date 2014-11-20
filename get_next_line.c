@@ -56,12 +56,14 @@ char	*get_all_char(const int r)
 {
   char	tmp[1];
   char	buffer[READ_SIZE + 1];
-  char *save;
+  char	*save;
   int	count;
   int	fd;
 
   fd = r;
   count = read(fd, &buffer[0], READ_SIZE);
+  if (count < 0)
+    return (NULL);
   buffer[count] = '\0';
   save = buffer_plus(tmp, buffer);
   if (save == NULL)
@@ -69,6 +71,8 @@ char	*get_all_char(const int r)
   while (count > 0)
       {
 	count = read(fd, &buffer[0], READ_SIZE);
+	if (count < 0)
+	  return (NULL);
 	buffer[count] = '\0';
 	save = buffer_plus(save, buffer);
 	if (save == NULL)
