@@ -11,9 +11,6 @@
 #ifndef GET_NEXT_LINE_H_
 # define GET_NEXT_LINE_H_
 
-#include <sys/types.h>
-#include <sys/uio.h>
-#include <unistd.h>
-#define READ_SIZE 30
+# define READ_SIZE 3
 
 #endif
