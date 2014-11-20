@@ -52,7 +52,7 @@ char	*buffer_plus(char *old, char *current)
   return (str);
 }
 
-char	*get_all_file(const int r)
+char	*get_all_char(const int r)
 {
   char	tmp[1];
   char	buffer[READ_SIZE + 1];
@@ -97,7 +97,7 @@ char	*get_next_line(const int fd)
 
   i = 0;
   if (save == NULL)
-    save = get_all_file(fd);
+    save = get_all_char(fd);
   if (save == NULL)
     return (NULL);
   while (save[i] != '\n' && save[i] != '\0')

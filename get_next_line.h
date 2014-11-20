@@ -10,7 +10,12 @@
 
 #ifndef GET_NEXT_LINE_H_
 # define GET_NEXT_LINE_H_
-
 # define READ_SIZE 3
+
+char *my_strcpy(char *dest, char *src);
+char *buffer_plus(char *old, char *current);
+char *get_all_char(const int r);
+char *my_backslash(char *save, char *ret, int i);
+char *get_next_line(const int fd);
 
 #endif
