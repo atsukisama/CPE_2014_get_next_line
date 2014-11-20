@@ -9,7 +9,10 @@
 */
 
 #include <stdlib.h>
+#include <unistd.h>
 #include "get_next_line.h"
+
+int my_putstr(char *);
 
 char	*my_strcpy(char *dest, char *src)
 {
@@ -39,7 +42,7 @@ char	*buffer_plus(char *old, char *current)
     i = i + 1;
   while (current[z] != '\0')
     z = z + 1;
-  str = malloc(i + z + 1);
+  str = malloc(sizeof(char) * (i + z + 1));
   if (str == NULL)
     return (NULL);
   i = 0;
@@ -52,15 +55,13 @@ char	*buffer_plus(char *old, char *current)
   return (str);
 }
 
-char	*get_all_char(const int r)
+char	*get_all_char(int fd)
 {
   char	tmp[1];
   char	buffer[READ_SIZE + 1];
   char	*save;
   int	count;
-  int	fd;
 
-  fd = r;
   count = read(fd, &buffer[0], READ_SIZE);
   if (count < 0)
     return (NULL);
@@ -70,13 +71,13 @@ char	*get_all_char(const int r)
     return (NULL);
   while (count > 0)
       {
-	count = read(fd, &buffer[0], READ_SIZE);
-	if (count < 0)
-	  return (NULL);
-	buffer[count] = '\0';
-	save = buffer_plus(save, buffer);
-	if (save == NULL)
-	  return (NULL);
+  	count = read(fd, &buffer[0], READ_SIZE);
+  	if (count < 0)
+  	  return (NULL);
+  	buffer[count] = '\0';
+  	save = buffer_plus(save, buffer);
+  	if (save == NULL)
+  	  return (NULL);
       }
   return (save);
 }
@@ -95,23 +96,26 @@ char	*my_backslash(char *save, char *ret, int i)
 
 char	*get_next_line(const int fd)
 {
-  static char	*save;
+  static char	*save = NULL;
   char		*ret;
   int		i;
 
   i = 0;
   if (save == NULL)
-    save = get_all_char(fd);
+    save = get_all_char((int)fd);
   if (save == NULL)
     return (NULL);
   while (save[i] != '\n' && save[i] != '\0')
     i = i + 1;
-  ret = malloc(i + 1);
+  ret = malloc(sizeof(char) * (i + 1));
   if (ret == NULL)
     return (NULL);
   i = 0;
   while (save[i] != '\n' && save[i + 1] != '\0')
-    ret[i] = save[i++];
+    {
+      ret[i] = save[i];
+      i = i + 1;
+    }
   my_backslash(save, ret, i);
   if (ret[0] == '\0' && save[0] != '\n')
     return (NULL);
