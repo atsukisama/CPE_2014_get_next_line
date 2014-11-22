@@ -12,8 +12,6 @@
 #include <unistd.h>
 #include "get_next_line.h"
 
-int my_putstr(char *);
-
 char	*my_strcpy(char *dest, char *src)
 {
   int	i;
@@ -38,6 +36,8 @@ char	*buffer_plus(char *old, char *current)
   i = 0;
   k = 0;
   z = 0;
+  if (old == NULL || current == NULL)
+    return (NULL);
   while (old[i] != '\0')
     i = i + 1;
   while (current[z] != '\0')
@@ -94,9 +94,9 @@ char	*my_backslash(char *save, char *ret, int i)
   return (ret);
 }
 
-char	*get_next_line(const int fd)
+char		*get_next_line(const int fd)
 {
-  static char	*save = NULL;
+  static char	*save;
   char		*ret;
   int		i;
 
@@ -116,9 +116,9 @@ char	*get_next_line(const int fd)
       ret[i] = save[i];
       i = i + 1;
     }
-  my_backslash(save, ret, i);
+  ret = my_backslash(save, ret, i);
   if (ret[0] == '\0' && save[0] != '\n')
     return (NULL);
-  my_strcpy(save, &save[i + 1]);
+  save = my_strcpy(save, &save[i + 1]);
   return (ret);
 }
