@@ -5,7 +5,7 @@
 ** Login   <kerebe_p@epitech.eu>
 ** 
 ** Started on  Mon Nov 17 00:49:54 2014 kerebe_p
-** Last update Mon Nov 17 00:49:54 2014 kerebe_p
+** Last update Sun Nov 23 18:49:14 2014 Paul Kerebel
 */
 
 #ifndef GET_NEXT_LINE_H_

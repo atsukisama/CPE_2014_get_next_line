@@ -5,7 +5,7 @@
 ** Login   <kerebe_p@epitech.eu>
 ** 
 ** Started on  Wed Nov 19 22:32:01 2014 kerebe_p
-** Last update Wed Nov 19 22:32:01 2014 kerebe_p
+** Last update Sun Nov 23 18:47:03 2014 Paul Kerebel
 */
 
 #include <stdlib.h>
@@ -55,14 +55,16 @@ char	*buffer_plus(char *old, char *current)
   return (str);
 }
 
-char	*get_all_char(int fd)
+char	*get_all_char(const int fd)
 {
   char	tmp[1];
   char	buffer[READ_SIZE + 1];
   char	*save;
   int	count;
+  int	r;
 
-  count = read(fd, &buffer[0], READ_SIZE);
+  r = fd;
+  count = read(r, buffer, READ_SIZE);
   if (count < 0)
     return (NULL);
   buffer[count] = '\0';
@@ -71,7 +73,7 @@ char	*get_all_char(int fd)
     return (NULL);
   while (count > 0)
       {
-  	count = read(fd, &buffer[0], READ_SIZE);
+  	count = read(r, buffer, READ_SIZE);
   	if (count < 0)
   	  return (NULL);
   	buffer[count] = '\0';
@@ -102,7 +104,7 @@ char		*get_next_line(const int fd)
 
   i = 0;
   if (save == NULL)
-    save = get_all_char((int)fd);
+    save = get_all_char(fd);
   if (save == NULL)
     return (NULL);
   while (save[i] != '\n' && save[i] != '\0')
